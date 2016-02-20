@@ -5,7 +5,7 @@
 #define DATABASE_NAME   "test.db"
 
 int create_database(void);
-int callback(void *NotUsed, int argc, char **argv, char **azColName);
+int callback(void *data, int argc, char **argv, char **azColName);
 
 sqlite3 *db;
 
@@ -14,6 +14,7 @@ sqlite3 *db;
 //
 int main(int argc, char **argv)
 {
+    const char* data = "Callback function called";
     char *sql;
     char *zErrMsg = 0;
         
@@ -30,10 +31,12 @@ int main(int argc, char **argv)
    }
 	
     rc = create_database();
-    
+        
     // insert
     sql = "INSERT INTO COMPANY (ID, NAME) VALUES (1, 'CONTOSO INC.') ;"
           "INSERT INTO PERSON  (ID, NAME, COMPANYID, SALARY) VALUES (1, 'John', 1, 12000.50) ;";
+          "INSERT INTO PERSON  (ID, NAME, COMPANYID, SALARY) VALUES (2, 'Paul', 1, 15000.00) ;";
+          "INSERT INTO PERSON  (ID, NAME, COMPANYID, SALARY) VALUES (3, 'Steven', 1, 11000.00) ;";
     
        
     // execute sql statement
@@ -98,7 +101,8 @@ int create_database() {
 //
 // callback function for sqlite3
 //
-static int callback(void *NotUsed, int argc, char **argv, char **azColName){
+static int callback(void *data, int argc, char **argv, char **azColName){
+    fprintf(stderr, "%s\n", (const char*)data);
     int i;
     for(i=0; i<argc; i++){
         printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
