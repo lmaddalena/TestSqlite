@@ -1,1 +1,1 @@
-cl ../*.c /Fe:testsqlite.exe /link sqlite3.lib
+cl ../*.c /Fe:testsqlite.exe
