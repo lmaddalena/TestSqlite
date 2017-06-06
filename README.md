@@ -1,6 +1,4 @@
-### Test Sqlite3 
-====================================================================
-by l.m.
+# Test Sqlite3 
 
 I sorgenti si scaricano da https://www.sqlite.org/2016/sqlite-amalgamation-3110000.zip
 
